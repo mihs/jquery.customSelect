@@ -5,7 +5,7 @@
  *
  * Copyright 2013 Adam Coulombe
  * @license http://www.opensource.org/licenses/mit-license.html MIT License
- * @license http://www.gnu.org/licenses/gpl.html GPL2 License 
+ * @license http://www.gnu.org/licenses/gpl.html GPL2 License
  */
 
 (function ($) {
@@ -20,26 +20,28 @@
             var defaults = {
                     customClass: 'customSelect',
                     mapClass:    true,
-                    mapStyle:    true
+                    mapStyle:    true,
+                    displayHtml:        function(selected) {
+                      return selected.html() || '&nbsp;';
+                    }
             },
             options = $.extend(defaults, options),
             prefix = options.customClass,
             changed = function ($select,customSelectSpan) {
                 var currentSelected = $select.find(':selected'),
-                customSelectSpanInner = customSelectSpan.children(':first'),
-                html = currentSelected.html() || '&nbsp;';
+                customSelectSpanInner = customSelectSpan.children(':first');
 
-                customSelectSpanInner.html(html);
-                
+                customSelectSpanInner.html(options.displayHtml(currentSelected));
+
                 if (currentSelected.attr('disabled')) {
                     customSelectSpan.addClass(getClass('DisabledOption'));
                 } else {
                     customSelectSpan.removeClass(getClass('DisabledOption'));
                 }
-                
+
                 setTimeout(function () {
                     customSelectSpan.removeClass(getClass('Open'));
-                    $(document).off('mouseup.customSelect');                  
+                    $(document).off('mouseup.customSelect');
                 }, 60);
             },
             getClass = function(suffix){
