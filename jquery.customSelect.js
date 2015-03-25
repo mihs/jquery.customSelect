@@ -54,7 +54,7 @@
                     customSelectSpan = $('<span />');
 
                 $select.after(customSelectSpan.append(customSelectInnerSpan));
-                
+
                 customSelectSpan.addClass(prefix);
 
                 if (options.mapClass) {
@@ -68,17 +68,15 @@
                     .addClass('hasCustomSelect')
                     .on('render.customSelect', function () {
                         changed($select,customSelectSpan);
-                        $select.css('width','');			
-                        var selectBoxWidth = parseInt($select.outerWidth(), 10) -
-                                (parseInt(customSelectSpan.outerWidth(), 10) -
-                                    parseInt(customSelectSpan.width(), 10));
-                        
+                        $select.css('width','');
+
                         // Set to inline-block before calculating outerHeight
                         customSelectSpan.css({
                             display: 'inline-block'
                         });
-                        
+
                         var selectBoxHeight = customSelectSpan.outerHeight();
+                        var selectBoxWidth = parseInt(customSelectSpan.outerWidth(), 10);
 
                         if ($select.attr('disabled')) {
                             customSelectSpan.addClass(getClass('Disabled'));
@@ -118,7 +116,7 @@
                         customSelectSpan.removeClass(getClass('Changed'));
                     })
                     .on('mouseup.customSelect', function (e) {
-                        
+
                         if( !customSelectSpan.hasClass(getClass('Open'))){
                             // if FF and there are other selects open, just apply focus
                             if($('.'+getClass('Open')).not(customSelectSpan).length>0 && typeof InstallTrigger !== 'undefined'){
